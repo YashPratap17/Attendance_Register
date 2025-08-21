@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Admin Dashboard</h3>
+
+<div class="row g-3">
+  <div class="col-md-3"><div class="card text-center"><div class="card-body"><h6>Total Students</h6><h2>{{ total_students }}</h2></div></div></div>
+  <div class="col-md-3"><div class="card text-center"><div class="card-body"><h6>Total Teachers</h6><h2>{{ total_teachers }}</h2></div></div></div>
+  <div class="col-md-3"><div class="card text-center"><div class="card-body"><h6>Teachers Checked-in Today</h6><h2>{{ teachers_checked_in_today }}</h2></div></div></div>
+  <div class="col-md-3"><div class="card text-center"><div class="card-body"><h6>Classes Marked Today</h6><h2>{{ classes_marked_today }}</h2></div></div></div>
+</div>
+
+<div class="mt-4">
+  <h5>Recent Complaints</h5>
+  <table class="table table-striped">
+    <thead><tr><th>Student</th><th>Date</th><th>Message</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for c in recent_complaints %}
+      <tr>
+        <td>{{ c.student.user.username }}</td>
+        <td>{{ c.date }}</td>
+        <td>{{ c.message }}</td>
+        <td>{% if c.resolved %}<span class="badge bg-success">Resolved</span>{% else %}<span class="badge bg-danger">Open</span>{% endif %}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No complaints</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Welcome, {{ teacher.user.username }}</h3>
+
+<div class="alert alert-info">
+  <strong>Your check-in today:</strong>
+  {{ teacher_checkin.date }} at {{ teacher_checkin.timestamp|date:"h:i A" }} ✅
+</div>
+
+{% if class_marked_today %}
+  <div class="alert alert-success">
+    You have already marked class attendance for <strong>{{ teacher.classroom.name }}</strong> today.
+  </div>
+{% else %}
+  <a class="btn btn-primary" href="{% url 'mark_class_attendance' %}">
+    Mark Class Attendance ({{ teacher.classroom.name }})
+  </a>
+{% endif %}
+{% endblock %}
